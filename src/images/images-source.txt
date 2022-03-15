@@ -1,0 +1,9 @@
+https://www.amcharts.com/free-animated-svg-weather-icons/
+
+License
+
+Icons are licenses under Creative Commons Attribution 4.0 International Public
+License.
+
+This basically means that you can do anything with them, (including commercial
+use) as long as you provide some sort of attribution to amCharts in your work.
