@@ -11,6 +11,8 @@
   "rules": {
     "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
-    "consistent-return": "warn"
+    "consistent-return": "warn",
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off"
   }
 }

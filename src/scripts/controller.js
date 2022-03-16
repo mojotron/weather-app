@@ -2,6 +2,13 @@ import '../styles/main.css';
 
 // import { API_URL } from './config';
 import { WEATHER_API_KEY } from './apikey';
+import currentSectionView from './views/currentSectionView';
+
+function importAll(r) {
+  r.keys().forEach(r);
+}
+
+importAll(require.context('../images/', true, /\.(png|jpg|jpeg|gif|svg)$/));
 
 const state = {
   current: {},
@@ -82,6 +89,7 @@ getCurrentLocation()
     }));
 
     console.log(state);
+    currentSectionView.render(state.current);
   })
   .catch(error => console.log(error.message));
 
