@@ -7,3 +7,13 @@ License.
 
 This basically means that you can do anything with them, (including commercial
 use) as long as you provide some sort of attribution to amCharts in your work.
+
+feels like icons
+https://iconduck.com/icons/9860/temperature-feels-like
+ This icon is named "Temperature feels-like" and is licensed under the open source "Apache License 2.0" license. It's available to be downloaded in SVG and PNG formats (available in 256, 512, 1024 and 2048 PNG sizes).
+
+It's part of the icon set "Carbon Icons", which has 2,103 icons in it.
+
+If you need this icon available in another format, it should be pretty straight forward to download it as an SVG image file, and then import it into apps like Adobe Photoshop, Crello, Photoshop or PicMonkey. Converting it to an ICO, JPEG or WebP image format or file type should also be pretty simple (we hope to add that feature to Iconduck soon).
+
+This icon can be used for both Personal & Commercial purposes and projects, but please check the license to see if the designer is requesting attribution (for example, a link back to their website). 

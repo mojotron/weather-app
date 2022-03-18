@@ -7,6 +7,11 @@ export const state = {
   hourly: [],
   daily: [],
   bonus: [],
+
+  setIsDay() {
+    const time = this.current.date.getTime();
+    this.current.isDay = time >= this.bonus.sunrise && time < this.bonus.sunset;
+  },
 };
 
 const getAJAX = async url => {
@@ -67,8 +72,8 @@ const createBonusWeatherObject = data => ({
   uvIndex: data.current.uvi,
   humidity: data.current.humidity,
   pressure: data.current.pressure,
-  sunrise: data.current.sunrise,
-  sunset: data.current.sunset,
+  sunrise: data.current.sunrise * 1000, // offset
+  sunset: data.current.sunset * 1000, // offset
   wind: {
     deg: data.current.wind_deg,
     speed: data.current.wind_speed,
@@ -84,13 +89,15 @@ export const loadWeatherData = async () => {
     state.lat = coords.lat;
     state.lon = coords.lon;
     const data = await getAJAX(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${state.lat}&lon=${state.lon}&units=metric&exclude=minutely&appid=${WEATHER_API_KEY}`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${state.lat}&lon=${state.lon}&units=metric&exclude=minutely&lang=${navigator.language}&appid=${WEATHER_API_KEY}`
     );
     console.log(data);
     state.current = createCurrentWeatherObject(data);
     state.hourly = createHourlyWeatherObject(data);
     state.daily = createDailyWeatherObject(data);
     state.bonus = createBonusWeatherObject(data);
+
+    state.setIsDay();
   } catch (error) {
     console.error(error.message);
     throw error;

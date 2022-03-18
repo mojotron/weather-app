@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;600&display=swap');
+
 html {
   font-size: 10px;
   box-sizing: border-box;
@@ -20,7 +21,7 @@ html {
   margin: 0;
 }
 body {
-  height: 100vh;
+  /* height: 100vh; */
   width: 100vw;
   background: linear-gradient(90deg, var(--light-yellow), var(--light-orange));
   display: flex;
@@ -40,6 +41,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  transition: all 2s;
 }
 
 .weather__current {
@@ -69,11 +71,7 @@ body {
 .current__image {
   height: 30rem;
   width: 30rem;
-  /* TEMP */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin: -3rem auto;
 }
 .image__forecast {
   height: 100%;
@@ -82,6 +80,8 @@ body {
 /* main temp */
 .current__temp {
   font-size: 8rem;
+  position: relative;
+  left: 1.5rem;
 }
 /* current min max feels like */
 .current__info {
@@ -90,4 +90,21 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 2rem;
+}
+.info__feels-like {
+  display: flex;
+}
+.info__feels-like__img {
+  display: block;
+  height: 2.8rem;
+  margin-right: 0.8rem;
+}
+.info__amplitude::before {
+  content: '▾';
+  position: relative;
+}
+.info__amplitude::after {
+  content: '▴';
+  position: relative;
+  bottom: 0.5rem;
 }
