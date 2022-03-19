@@ -53,9 +53,10 @@ const createCurrentWeatherObject = data => ({
 
 const createHourlyWeatherObject = data =>
   data.hourly.slice(1, 25).map(obj => ({
+    time: obj.dt * 1000,
     temp: obj.temp,
     rainProbability: obj.pop,
-    description: obj.weather[0].description,
+    descriptionId: obj.weather[0].id,
   }));
 
 const createDailyWeatherObject = data =>

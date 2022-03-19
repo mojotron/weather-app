@@ -1,6 +1,7 @@
 import '../styles/main.css';
 import * as model from './model';
 import currentSectionView from './views/currentSectionView';
+import hourlySectionView from './views/hourlySectionView';
 // load all images to dist, so we can use './images/img-name.svg' path in views
 function importAll(r) {
   r.keys().forEach(r);
@@ -11,6 +12,7 @@ const controlWeatherData = async () => {
   try {
     await model.loadWeatherData();
     currentSectionView.render(model.state.current);
+    hourlySectionView.render(model.state.hourly);
   } catch (error) {
     console.log(error);
     // TODO render error element
