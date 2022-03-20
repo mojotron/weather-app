@@ -5,7 +5,6 @@ class HourlySectionView extends View {
   _parentElement = document.querySelector('.weather__hourly');
 
   _generateMarkup() {
-    console.log(this._data);
     return this._data
       .map(hourData => this._generateHourlyMarkup(hourData))
       .join('\n');

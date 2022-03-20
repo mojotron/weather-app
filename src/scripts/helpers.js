@@ -8,6 +8,9 @@ export const formatDate = date => {
   return formatter.format(date);
 };
 
+export const getDayName = date =>
+  new Intl.DateTimeFormat(navigator.language, { weekday: 'long' }).format(date);
+
 export const formatTime = date => {
   const options = {
     hour: 'numeric',

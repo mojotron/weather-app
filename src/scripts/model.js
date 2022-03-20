@@ -61,12 +61,13 @@ const createHourlyWeatherObject = data =>
 
 const createDailyWeatherObject = data =>
   data.daily.slice(1).map(obj => ({
+    time: obj.dt * 1000,
     rainProbability: obj.pop,
     temp: {
       minimum: obj.temp.min,
       maximum: obj.temp.max,
     },
-    description: obj.weather[0].description,
+    descriptionId: obj.weather[0].id,
   }));
 
 const createBonusWeatherObject = data => ({
