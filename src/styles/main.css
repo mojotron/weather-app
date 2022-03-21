@@ -12,6 +12,10 @@ html {
   --light-yellow: #f7d477;
   --light-orange: #ec9b86;
   --font-white: #dadde1;
+  --uv-low: #00ae4c;
+  --uv-medium: #fcd933;
+  --uv-high: #f77c00;
+  --uv-very-high: #ee2a13;
 }
 *,
 *::before,
@@ -127,6 +131,10 @@ body {
   padding: 0.5rem;
   margin: 0 0.1rem;
 }
+.hourly p img {
+  position: relative;
+  top: 2px;
+}
 
 /* daily */
 .weather__daily {
@@ -140,4 +148,27 @@ body {
   justify-content: space-around;
   align-items: center;
   font-size: 1.8rem;
+}
+/* bonus */
+.weather__bonus {
+  width: 100%;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bonus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.8rem;
+  border-bottom: 1px solid rgba(167, 160, 160, 0.3);
+  width: 50%;
+  padding: 1.5rem 2rem;
+}
+.icon {
+  display: inline-block;
+  height: 3rem;
+  width: 3rem;
 }

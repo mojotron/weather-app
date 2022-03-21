@@ -13,6 +13,7 @@
     "import/prefer-default-export": "off",
     "consistent-return": "warn",
     "no-underscore-dangle": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-nested-ternary": "warn"
   }
 }

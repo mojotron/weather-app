@@ -14,7 +14,9 @@ class DailySectionView extends View {
     return `
       <div class="daily">
         <p class="daily__weekday">${getDayName(dataDaily.time)}</p>
-        <p class="daily__pop">💧${dataDaily.rainProbability}%</p>
+        <p class="daily__pop">
+          <img src="./images/droplet-svgrepo-com.svg"/>
+        ${dataDaily.rainProbability}%</p>
         <div class="daily__images">
           <img src="./images/${getImagePath(
             dataDaily.descriptionId,

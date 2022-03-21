@@ -18,7 +18,9 @@ class HourlySectionView extends View {
           hourData.descriptionId
         )}" alt="temp" />
         <p class="hourly__temp">${hourData.temp.toFixed()}°</p>
-        <p class="hourly__pop">💧${hourData.rainProbability}%</p>
+        <p class="hourly__pop">
+          <img src="./images/droplet-svgrepo-com.svg"/>
+        ${hourData.rainProbability}%</p>
       </div>
     `;
   }

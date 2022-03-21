@@ -3,6 +3,7 @@ import * as model from './model';
 import currentSectionView from './views/currentSectionView';
 import hourlySectionView from './views/hourlySectionView';
 import dailySectionView from './views/dailySectionView';
+import bonusSectionView from './views/bonusSectionView';
 // load all images to dist, so we can use './images/img-name.svg' path in views
 function importAll(r) {
   r.keys().forEach(r);
@@ -15,6 +16,9 @@ const controlWeatherData = async () => {
     currentSectionView.render(model.state.current);
     hourlySectionView.render(model.state.hourly);
     dailySectionView.render(model.state.daily);
+    bonusSectionView.render(model.state.bonus);
+    bonusSectionView.addWindDirection();
+    bonusSectionView.addUVStyle();
   } catch (error) {
     console.log(error);
     // TODO render error element
