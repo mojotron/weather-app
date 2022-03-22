@@ -8,6 +8,62 @@
   </head>
   <body>
     <div class="weather">
+      <div class="options">
+        <button class="btn--options">
+          <img
+            data="options"
+            src="./images/cogwheel-svgrepo-com.svg"
+            alt="cogwheel icon"
+          />
+        </button>
+
+        <div class="options__modal">
+          <h2>Options</h2>
+          <form class="options-form">
+            <div class="units-system__units">
+              <input
+                checked
+                value="metric"
+                type="radio"
+                name="units-system"
+                id="units--metric"
+              />
+              <label class="units-system__label" for="units--metric"
+                >metric (temp: Celsius, wind speed: meter/sec)</label
+              >
+            </div>
+            <div class="units-system__units">
+              <input
+                value="imperial"
+                type="radio"
+                name="units-system"
+                id="units--imperial"
+              />
+              <label class="units-system__label" for="units--imperial"
+                >imperial (temp: Fahrenheit, wind speed: miles/hour)</label
+              >
+            </div>
+            <div class="units-system__units">
+              <input
+                value="standard"
+                type="radio"
+                name="units-system"
+                id="units--standard"
+              />
+              <label class="units-system__label" for="units--standard"
+                >standard (temp: Kelvin, wind speed: meter/sec)</label
+              >
+            </div>
+            <div class="">
+              <label for="city--search">city name</label>
+              <input id="city--search" type="text" />
+              <div class="city__search__results"></div>
+            </div>
+            <button type="submit" class="btn--update">update</button>
+          </form>
+        </div>
+      </div>
+
       <div class="weather__current"></div>
 
       <div class="weather__hourly"></div>

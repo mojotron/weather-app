@@ -4,6 +4,7 @@ import currentSectionView from './views/currentSectionView';
 import hourlySectionView from './views/hourlySectionView';
 import dailySectionView from './views/dailySectionView';
 import bonusSectionView from './views/bonusSectionView';
+import optionsView from './views/optionsView';
 // load all images to dist, so we can use './images/img-name.svg' path in views
 function importAll(r) {
   r.keys().forEach(r);
@@ -24,9 +25,15 @@ const controlWeatherData = async () => {
     // TODO render error element
   }
 };
+const controlOptionsSubmit = async obj => {
+  console.log(obj);
+  const data = await model.loadCityNames(obj.city);
+  console.log(data);
+};
 
 const init = () => {
   controlWeatherData();
+  optionsView.addSubmitHandler(controlOptionsSubmit);
 };
 
 init();

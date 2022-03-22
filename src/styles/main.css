@@ -47,6 +47,7 @@ body {
   justify-content: flex-start;
   transition: all 2s;
   overflow: hidden;
+  position: relative;
 }
 
 .weather__current {
@@ -171,4 +172,51 @@ body {
   display: inline-block;
   height: 3rem;
   width: 3rem;
+}
+
+/* options */
+.btn--options {
+  height: 3rem;
+  width: 3rem;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  cursor: pointer;
+
+  background: none;
+  border: none;
+}
+
+[data='options'] {
+  height: 100%;
+  width: 100%;
+  transition: transform 1s;
+}
+[data='options']:hover {
+  transform: rotate(90deg);
+}
+
+.options__modal {
+  position: absolute;
+  height: 20rem;
+  width: 80%;
+  background: var(--font-white);
+  color: var(--dark-blue);
+  right: 1rem;
+  top: 4.4rem;
+  border-radius: 1rem;
+  pointer-events: none;
+  transform: translateY(-35%) translateX(5%);
+  transition: transform ease-in-out 500ms, opacity 500ms ease-in-out;
+  opacity: 0;
+}
+
+.options__modal.modal--active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.units-system__label {
+  font-size: 1.5rem;
 }

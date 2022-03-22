@@ -22,10 +22,7 @@ class DailySectionView extends View {
             dataDaily.descriptionId,
             true
           )}" alt="" />
-          <img src="./images/${getImagePath(
-            dataDaily.descriptionId,
-            false
-          )}" alt="" />
+          
         </div>
         <p class="daily__temp">
           <span class="daily__temp--min">${dataDaily.temp.minimum.toFixed()}°</span> /

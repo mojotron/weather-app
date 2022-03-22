@@ -92,7 +92,7 @@ export const loadWeatherData = async () => {
     const data = await getAJAX(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${state.lat}&lon=${state.lon}&units=metric&exclude=minutely&lang=${navigator.language}&appid=${WEATHER_API_KEY}`
     );
-    console.log(data);
+    // console.log(data);
     state.current = createCurrentWeatherObject(data);
     state.hourly = createHourlyWeatherObject(data);
     state.daily = createDailyWeatherObject(data);
@@ -105,10 +105,17 @@ export const loadWeatherData = async () => {
   }
 };
 
-// get weather data with city/country name
-// const city = 'rovinj';
-
-// search by city, get up to 5 search results
-// getJSON(
-//   `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${WEATHER_API_KEY}`
-// );
+export const loadCityNames = async city => {
+  try {
+    const data = await getAJAX(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${WEATHER_API_KEY}`
+    );
+    return data.map(obj => ({
+      city: obj.name,
+      country: obj.country,
+    }));
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+};

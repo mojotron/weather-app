@@ -5,7 +5,6 @@ class CurrentSectionView extends View {
   _parentElement = document.querySelector('.weather__current');
 
   _generateMarkup() {
-    console.log(this._data);
     return `
     <div class="weather__current">
       <div class="current__location">
