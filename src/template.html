@@ -19,7 +19,7 @@
 
         <div class="options__modal">
           <h2>Options</h2>
-          <form class="options-form">
+          <div class="options-form">
             <div class="units-system__units">
               <input
                 checked
@@ -54,13 +54,17 @@
                 >standard (temp: Kelvin, wind speed: meter/sec)</label
               >
             </div>
-            <div class="">
-              <label for="city--search">city name</label>
-              <input id="city--search" type="text" />
-              <div class="city__search__results"></div>
-            </div>
+            <form class="search">
+              <label class="search__label" for="city--search">city name</label>
+              <input class="search__bar" id="city--search" type="text" />
+              <button type="submit">></button>
+              <p>
+                (enter city, press enter or arrow btn, choose city and upddate)
+              </p>
+              <div class="search__results"></div>
+            </form>
             <button type="submit" class="btn--update">update</button>
-          </form>
+          </div>
         </div>
       </div>
 

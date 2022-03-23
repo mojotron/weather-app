@@ -9,6 +9,12 @@ class OptionsView extends View {
 
   _optionsForm = this._parentElement.querySelector('.options-form');
 
+  _searchBar = this._parentElement.querySelector('.search__bar');
+
+  _searchResults = this._parentElement.querySelector('.search__results');
+
+  _updateBtn = this._parentElement.querySelector('.btn--update');
+
   constructor() {
     super();
     this._optionsBtn.addEventListener('click', this._toggleModal.bind(this));
@@ -18,28 +24,62 @@ class OptionsView extends View {
     this._optionsModal.classList.toggle('modal--active');
   }
 
-  addSubmitHandler(handler) {
+  addSearchSubmitHandler(handler) {
     this._optionsForm.addEventListener('submit', e => {
       e.preventDefault();
-      // getting data (unit system from radio btn and city name from text input)
-      // text input can be empty string
-      const units = this._parentElement.querySelector(
-        'input[name="units-system"]:checked'
-      ).value;
-      // active radio and text input
+
       const city = this._parentElement
         .querySelector('#city--search')
         .value.trim();
-
-      // simple form validation for city name, if city is invalid return
-      // if city is empty string call handler, MCV will check if units are diff,
-      // if are make new api call if not simply ignore user update
-      const cityTest = /^[a-zA-Z\u0080-\u024F\s\/\-\)\(\`\.\"\',]+$/.test(city);
+      const cityTest = /^[a-zA-Z\u0080-\u024F\s\/\-\)\(\`\.\"\']+$/.test(city);
 
       if (!cityTest && city !== '') return;
-      // form validation
-      console.log('city test:', cityTest);
-      handler({ units, city });
+      handler(city);
+    });
+  }
+
+  renderSearchResults(data) {
+    const markup = data
+      .map((obj, i) => this._generateSearchElementMarkup(obj, i))
+      .join('\n');
+    this._searchResults.innerHTML = '';
+    this._searchResults.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  _generateSearchElementMarkup(searchObj, i) {
+    return `
+      <div class="search-result" data-index=${i}>
+        <p>${searchObj.city} ${searchObj.state ?? ''} ${searchObj.country}</p>
+        <p>(lat: ${searchObj.lat.toFixed(3)},lon: ${searchObj.lon.toFixed(
+      3
+    )})</p>
+      </div>
+    `;
+  }
+
+  addSearchMatchHandler(handler) {
+    this._searchResults.addEventListener('click', e => {
+      const match = e.target.closest('.search-result');
+      if (!match) return;
+      handler(match.dataset.index);
+    });
+  }
+
+  updateSearchBar(data) {
+    this._searchBar.value = `${data.city} ${data.country}`;
+    this._searchResults.innerHTML = '';
+  }
+
+  addUpdateAppHandler(handler) {
+    this._updateBtn.addEventListener('click', () => {
+      const units = this._parentElement.querySelector(
+        'input[name="units-system"]:checked'
+      ).value;
+      this._toggleModal();
+      this._searchBar.value = '';
+      this._searchBar.blur();
+      this._searchResults.innerHTML = '';
+      handler(units);
     });
   }
 }

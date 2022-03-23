@@ -11,9 +11,9 @@ function importAll(r) {
 }
 importAll(require.context('../images/', true, /\.(png|jpg|jpeg|gif|svg)$/));
 
-const controlWeatherData = async () => {
+const controlWeatherData = async (getLocation = true) => {
   try {
-    await model.loadWeatherData();
+    await model.loadWeatherData(getLocation);
     currentSectionView.render(model.state.current);
     hourlySectionView.render(model.state.hourly);
     dailySectionView.render(model.state.daily);
@@ -25,15 +25,36 @@ const controlWeatherData = async () => {
     // TODO render error element
   }
 };
-const controlOptionsSubmit = async obj => {
-  console.log(obj);
-  const data = await model.loadCityNames(obj.city);
-  console.log(data);
+const controlOptionsSearchSubmit = async city => {
+  try {
+    await model.loadCityNames(city);
+    const data = model.state.searchResults;
+    if (data.length === 0) return; // TODO render error
+    if (data.length === 1) return; // TODO make api call
+    if (data.length > 1) optionsView.renderSearchResults(data); // TODO display search options
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const controlSearchResult = index => {
+  model.state.searchIndex = index;
+  optionsView.updateSearchBar(
+    model.state.searchResults[model.state.searchIndex]
+  );
+};
+
+const controlAppUpdate = () => {
+  console.log(model.state);
+  // update units if diff
+  // update city if diff
 };
 
 const init = () => {
   controlWeatherData();
-  optionsView.addSubmitHandler(controlOptionsSubmit);
+  optionsView.addSearchSubmitHandler(controlOptionsSearchSubmit);
+  optionsView.addSearchMatchHandler(controlSearchResult);
+  optionsView.addUpdateAppHandler(controlAppUpdate);
 };
 
 init();

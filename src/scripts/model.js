@@ -7,8 +7,11 @@ export const state = {
   hourly: [],
   daily: [],
   bonus: [],
+  searchResults: [], // used to store mache
+  searchIndex: null,
 
   setIsDay() {
+    // TODO
     const time = this.current.date.getTime();
     this.current.isDay = time >= this.bonus.sunrise && time < this.bonus.sunset;
   },
@@ -83,16 +86,18 @@ const createBonusWeatherObject = data => ({
 });
 
 // get weather data with current geolocation
-export const loadWeatherData = async () => {
+export const loadWeatherData = async (getLocation = true) => {
   try {
-    const location = await getCurrentLocation();
-    const coords = await getCurrentLocationCoords(location);
-    state.lat = coords.lat;
-    state.lon = coords.lon;
+    if (getLocation) {
+      const location = await getCurrentLocation();
+      const coords = await getCurrentLocationCoords(location);
+      state.lat = coords.lat;
+      state.lon = coords.lon;
+    }
     const data = await getAJAX(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${state.lat}&lon=${state.lon}&units=metric&exclude=minutely&lang=${navigator.language}&appid=${WEATHER_API_KEY}`
     );
-    // console.log(data);
+    console.log(data);
     state.current = createCurrentWeatherObject(data);
     state.hourly = createHourlyWeatherObject(data);
     state.daily = createDailyWeatherObject(data);
@@ -110,9 +115,12 @@ export const loadCityNames = async city => {
     const data = await getAJAX(
       `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${WEATHER_API_KEY}`
     );
-    return data.map(obj => ({
+    state.searchResults = data.map(obj => ({
       city: obj.name,
       country: obj.country,
+      lat: obj.lat,
+      lon: obj.lon,
+      ...(obj.state && { state: obj.state }),
     }));
   } catch (error) {
     console.log(error.message);

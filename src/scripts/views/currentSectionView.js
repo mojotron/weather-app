@@ -6,12 +6,12 @@ class CurrentSectionView extends View {
 
   _generateMarkup() {
     return `
-    <div class="weather__current">
       <div class="current__location">
         <p class="location__date">${formatDate(this._data.date)}</p>
         <p class="location__time">${formatTime(this._data.date)}</p>
         <p class="location__city">${this._data.city}</p>
       </div>
+
       <div class="current__image">
         <img
           class="image__forecast"
@@ -22,7 +22,9 @@ class CurrentSectionView extends View {
           alt="My Happy SVG"
         />
       </div>
+
       <div class="current__temp">${this._data.temp.current.toFixed()}°</div>
+
       <div class="current__info">
         <p class="info__description">${this._data.description.text}</p>
         <p class="info__amplitude">
@@ -37,9 +39,7 @@ class CurrentSectionView extends View {
           >
           <p><spam class="info__feels-like__para">${this._data.temp.feelsLike.toFixed()}°</spam></p>
         </div>
-        
       </div>
-    </div>
     `;
   }
 }

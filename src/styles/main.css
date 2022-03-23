@@ -198,7 +198,6 @@ body {
 
 .options__modal {
   position: absolute;
-  height: 20rem;
   width: 80%;
   background: var(--font-white);
   color: var(--dark-blue);
@@ -219,4 +218,38 @@ body {
 
 .units-system__label {
   font-size: 1.5rem;
+}
+
+.search__results {
+  background: var(--dark-blue);
+  color: var(--font-white);
+  border-radius: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  left: 3rem;
+  width: 70%;
+}
+.search__label {
+  font-size: 1.8rem;
+}
+.search__bar {
+  margin: 0.5rem 1rem 0;
+  background: none;
+  border: none;
+  border-bottom: 3px solid var(--dark-blue);
+  font-family: inherit;
+  font-size: 1.8rem;
+  color: var(--dark-blue);
+  letter-spacing: 1px;
+}
+.search-result {
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: 1px solid var(--dark-blue);
+}
+
+.search-result:hover {
+  background: var(--font-white);
+  color: var(--dark-blue);
 }
