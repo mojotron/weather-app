@@ -5,7 +5,7 @@ class DailySectionView extends View {
   _parentElement = document.querySelector('.weather__daily');
 
   _generateMarkup() {
-    return this._data
+    return this._data.daily
       .map(dataDaily => this._generateDailyMarkup(dataDaily))
       .join('\n');
   }
@@ -25,8 +25,12 @@ class DailySectionView extends View {
           
         </div>
         <p class="daily__temp">
-          <span class="daily__temp--min">${dataDaily.temp.minimum.toFixed()}°</span> /
-          <span class="daily__temp--max">${dataDaily.temp.maximum.toFixed()}°</span>
+          <span class="daily__temp--min">${dataDaily.temp.minimum.toFixed()}${
+      this._data.units.temp
+    }</span> /
+          <span class="daily__temp--max">${dataDaily.temp.maximum.toFixed()}${
+      this._data.units.temp
+    }</span>
         </p>
       </div>
     `;

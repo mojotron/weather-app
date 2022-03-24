@@ -122,7 +122,6 @@ body {
 }
 .hourly {
   font-size: 1.5rem;
-  /* border: 1px solid gold; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -252,4 +251,39 @@ body {
 .search-result:hover {
   background: var(--font-white);
   color: var(--dark-blue);
+}
+
+/* spinner */
+.spinner {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* alerts */
+.weather__alerts {
+  width: 100%;
+}
+.alert {
+  margin: -1rem auto 0.3rem;
+  background: linear-gradient(90deg, var(--uv-very-high), var(--uv-high));
+  width: 90%;
+  border-radius: 0.5rem;
+  color: var(--font-white);
+}
+.alert__tag {
+  text-align: center;
+  font-size: 1.8rem;
+}
+.alert__description {
+  padding: 1rem 2rem;
+  text-align: justify;
+  font-size: 1.3rem;
 }

@@ -1,8 +1,10 @@
 import { WEATHER_API_KEY } from './apikey';
+import { UNITS } from './config';
 
 export const state = {
   lat: null,
   lon: null,
+  units: UNITS.metric,
   current: {},
   hourly: [],
   daily: [],
@@ -10,8 +12,7 @@ export const state = {
   searchResults: [], // used to store mache
   searchIndex: null,
 
-  setIsDay() {
-    // TODO
+  setIsDayCurrent() {
     const time = this.current.date.getTime();
     this.current.isDay = time >= this.bonus.sunrise && time < this.bonus.sunset;
   },
@@ -60,6 +61,7 @@ const createHourlyWeatherObject = data =>
     temp: obj.temp,
     rainProbability: Math.round(obj.pop * 100),
     descriptionId: obj.weather[0].id,
+    isDay: obj.weather[0].icon.at(-1) === 'd',
   }));
 
 const createDailyWeatherObject = data =>
@@ -95,15 +97,19 @@ export const loadWeatherData = async (getLocation = true) => {
       state.lon = coords.lon;
     }
     const data = await getAJAX(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${state.lat}&lon=${state.lon}&units=metric&exclude=minutely&lang=${navigator.language}&appid=${WEATHER_API_KEY}`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${state.lat}&lon=${state.lon}&units=${state.units.label}&exclude=minutely&lang=${navigator.language}&appid=${WEATHER_API_KEY}`
     );
     console.log(data);
     state.current = createCurrentWeatherObject(data);
     state.hourly = createHourlyWeatherObject(data);
     state.daily = createDailyWeatherObject(data);
     state.bonus = createBonusWeatherObject(data);
-
-    state.setIsDay();
+    state.setIsDayCurrent();
+    // get city name with another call to diff endpoint
+    const data2 = await getAJAX(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${state.lat}&lon=${state.lon}&appid=${WEATHER_API_KEY}`
+    );
+    state.current.city = `${data2.city.name}, ${data2.city.country}`;
   } catch (error) {
     console.error(error.message);
     throw error;
@@ -127,3 +133,18 @@ export const loadCityNames = async city => {
     throw error;
   }
 };
+
+export const setLocalStorage = units => {
+  localStorage.setItem('weather-app', JSON.stringify(units));
+};
+
+const getLocalStorage = () => {
+  const units = JSON.parse(localStorage.getItem('weather-app')) ?? 'metric';
+  state.units = UNITS[units];
+};
+
+const init = () => {
+  getLocalStorage();
+};
+
+init();

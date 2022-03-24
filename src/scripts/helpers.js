@@ -20,10 +20,6 @@ export const formatTime = date => {
   return formatter.format(date);
 };
 
-export const isDay = date => {
-  console.log(date);
-};
-
 export const getImagePath = (id, day = true) => {
   const str = day ? 'day' : 'night';
   // clear sky

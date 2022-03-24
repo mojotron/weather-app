@@ -1,7 +1,7 @@
 export const API_URL =
   'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}';
 
-export const units = {
+export const UNITS = {
   metric: {
     label: 'metric',
     temp: '°C',
@@ -13,8 +13,8 @@ export const units = {
     wind: 'mph',
   },
   standard: {
-    label: 'metric',
-    temp: '°C',
+    label: 'standard',
+    temp: 'K',
     wind: 'm/s',
   },
 };

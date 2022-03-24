@@ -82,6 +82,10 @@ class OptionsView extends View {
       handler(units);
     });
   }
+
+  selectUnitsRadioInput(units) {
+    document.querySelector(`#units--${units}`).checked = true;
+  }
 }
 
 export default new OptionsView();

@@ -12,45 +12,48 @@ class BonusSectionView extends View {
           src="./images/uv-index-alt-svgrepo-com.svg"
           alt=""
         />
-        <p data="uv-index">${this._data.uvIndex}</p>
+        <p data="uv-index">${this._data.bonus.uvIndex}</p>
       </div>
       
       <div class="bonus bonus__sunset">
         <img class="icon" src="./images/sunset-svgrepo-com.svg" alt="" />
-        <p>${formatTime(this._data.sunset)}</p>
+        <p>${formatTime(this._data.bonus.sunset)}</p>
       </div>
 
       <div class="bonus bonus__sunrise">
         <img class="icon" src="./images/sunrise-svgrepo-com.svg" alt="" />
-        <p>${formatTime(this._data.sunrise)}</p>
+        <p>${formatTime(this._data.bonus.sunrise)}</p>
       </div>
 
       <div class="bonus bonus__wind">
         <img class="icon" src="./images/wind-svgrepo-com.svg" alt="" />
-        <p>${this._data.wind.speed} km/h</p>
+        <p>${this._data.bonus.wind.speed} ${this._data.units.wind}</p>
         <img data="wind-direction" class="icon" src="./images/up-arrow-svgrepo-com.svg" alt="" />
       </div>
 
       <div class="bonus bonus__humidity">
         <img class="icon" src="./images/humidity-svgrepo-com.svg" alt="" />
-        <p>${this._data.humidity}%</p>
+        <p>${this._data.bonus.humidity}%</p>
       </div>
 
       <div class="bonus bonus__pressure">
         <img class="icon" src="./images/barometer-svgrepo-com.svg" alt="" />
-        <p>${this._data.pressure} hpa</p>
+        <p>${this._data.bonus.pressure} hpa</p>
       </div>
     `;
   }
 
   addWindDirection() {
     const element = document.querySelector('[data="wind-direction"]');
-    element.style.setProperty('transform', `rotate(${this._data.wind.deg}deg)`);
+    element.style.setProperty(
+      'transform',
+      `rotate(${this._data.bonus.wind.deg}deg)`
+    );
   }
 
   addUVStyle() {
     const element = document.querySelector('[data="uv-index"]');
-    const { uvIndex } = this._data;
+    const { uvIndex } = this._data.bonus;
     const color =
       uvIndex < 3
         ? '--uv-low'

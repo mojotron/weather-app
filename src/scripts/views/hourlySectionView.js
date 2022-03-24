@@ -5,8 +5,8 @@ class HourlySectionView extends View {
   _parentElement = document.querySelector('.weather__hourly');
 
   _generateMarkup() {
-    return this._data
-      .map(hourData => this._generateHourlyMarkup(hourData))
+    return this._data.hourly
+      .map((hourData, i) => this._generateHourlyMarkup(hourData, i))
       .join('\n');
   }
 
@@ -15,9 +15,12 @@ class HourlySectionView extends View {
       <div class="hourly">
         <p class="hourly__time">${formatTime(hourData.time)}</p>
         <img class="hourly__image" src="./images/${getImagePath(
-          hourData.descriptionId
+          hourData.descriptionId,
+          hourData.isDay
         )}" alt="temp" />
-        <p class="hourly__temp">${hourData.temp.toFixed()}°</p>
+        <p class="hourly__temp">${hourData.temp.toFixed()}${
+      this._data.units.temp
+    }</p>
         <p class="hourly__pop">
           <img src="./images/droplet-svgrepo-com.svg"/>
         ${hourData.rainProbability}%</p>

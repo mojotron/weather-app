@@ -9,7 +9,14 @@ export default class View {
   }
 
   _clear() {
-    console.log(this);
     this._parentElement.innerHTML = '';
+  }
+
+  renderSpinner() {
+    const markup = `
+      <img class="spinner" src="./images/spinner-solid-svgrepo-com.svg"/>
+    `;
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 }
