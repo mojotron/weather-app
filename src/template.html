@@ -18,9 +18,10 @@
         </button>
 
         <div class="options__modal">
-          <h2>Options</h2>
+          <h2 class="options__modal__heading">options</h2>
           <div class="options-form">
-            <div class="units-system__units">
+            <h3 class="units-system__heading">measurement units</h3>
+            <div class="units-system__wrapper">
               <input
                 checked
                 value="metric"
@@ -32,7 +33,7 @@
                 >metric (temp: Celsius, wind speed: meter/sec)</label
               >
             </div>
-            <div class="units-system__units">
+            <div class="units-system__wrapper">
               <input
                 value="imperial"
                 type="radio"
@@ -43,7 +44,7 @@
                 >imperial (temp: Fahrenheit, wind speed: miles/hour)</label
               >
             </div>
-            <div class="units-system__units">
+            <div class="units-system__wrapper">
               <input
                 value="standard"
                 type="radio"
@@ -55,11 +56,21 @@
               >
             </div>
             <form class="search">
-              <label class="search__label" for="city--search">city name</label>
-              <input class="search__bar" id="city--search" type="text" />
-              <button type="submit">></button>
-              <p>
-                (enter city, press enter or arrow btn, choose city and update)
+              <label class="search__label" for="city--search"
+                >search for city</label
+              >
+              <input
+                class="search__bar"
+                id="city--search"
+                type="text"
+                placeholder="...type city name"
+              />
+              <button class="btn--form btn--search-city" type="submit">
+                <img src="./images/search-svgrepo-com.svg" alt="" />
+              </button>
+              <p class="search__user-tip">
+                (type city name -> press enter/search icon -> choose city ->
+                click update)
               </p>
               <div class="search__results"></div>
             </form>

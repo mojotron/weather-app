@@ -49,10 +49,9 @@ class OptionsView extends View {
   _generateSearchElementMarkup(searchObj, i) {
     return `
       <div class="search-result" data-index=${i}>
-        <p>${searchObj.city} ${searchObj.state ?? ''} ${searchObj.country}</p>
-        <p>(lat: ${searchObj.lat.toFixed(3)},lon: ${searchObj.lon.toFixed(
-      3
-    )})</p>
+        <p>${searchObj.city} ${searchObj.state ?? ''} ${
+      searchObj.country
+    } (lat: ${searchObj.lat.toFixed(3)},lon: ${searchObj.lon.toFixed(3)})</p>
       </div>
     `;
   }
