@@ -287,3 +287,17 @@ body {
   text-align: justify;
   font-size: 1.3rem;
 }
+
+/* error */
+.error {
+  width: 90%;
+  border: 1px solid var(--font-white);
+  background-color: var(--font-white);
+  border-radius: 0.8rem;
+  padding: 2rem;
+  opacity: 0.5;
+}
+.error__message {
+  color: var(--dark-blue);
+  font-size: 1.5rem;
+}

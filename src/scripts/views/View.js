@@ -19,4 +19,14 @@ export default class View {
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
+
+  renderError() {
+    const markup = `
+      <div class="error">
+        <p class="error__message">${this._errorMessage}</p>
+      </div>
+    `;
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
 }

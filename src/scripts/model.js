@@ -9,6 +9,7 @@ export const state = {
   hourly: [],
   daily: [],
   bonus: [],
+  alerts: [],
   searchResults: [], // used to store mache
   searchIndex: null,
 
@@ -87,6 +88,12 @@ const createBonusWeatherObject = data => ({
   },
 });
 
+const createAlertsWeatherObject = data =>
+  data.map(ele => ({
+    tag: ele.tags[0],
+    description: ele.description.split('\n'),
+  }));
+
 // get weather data with current geolocation
 export const loadWeatherData = async (getLocation = true) => {
   try {
@@ -99,17 +106,18 @@ export const loadWeatherData = async (getLocation = true) => {
     const data = await getAJAX(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${state.lat}&lon=${state.lon}&units=${state.units.label}&exclude=minutely&lang=${navigator.language}&appid=${WEATHER_API_KEY}`
     );
-    console.log(data);
     state.current = createCurrentWeatherObject(data);
     state.hourly = createHourlyWeatherObject(data);
     state.daily = createDailyWeatherObject(data);
     state.bonus = createBonusWeatherObject(data);
+    if (data.alerts) state.alerts = createAlertsWeatherObject(data);
     state.setIsDayCurrent();
     // get city name with another call to diff endpoint
     const data2 = await getAJAX(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${state.lat}&lon=${state.lon}&appid=${WEATHER_API_KEY}`
     );
     state.current.city = `${data2.city.name}, ${data2.city.country}`;
+    console.log(state);
   } catch (error) {
     console.error(error.message);
     throw error;

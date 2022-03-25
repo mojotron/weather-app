@@ -4,6 +4,8 @@ import { formatDate, formatTime, getImagePath } from '../helpers';
 class CurrentSectionView extends View {
   _parentElement = document.querySelector('.weather__current');
 
+  _errorMessage = 'Could not get weather data, pleas try again later!';
+
   _generateMarkup() {
     console.log(this._data);
     return `
