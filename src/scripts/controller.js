@@ -76,6 +76,7 @@ const controlAppUpdate = units => {
     model.state.lat = model.state.searchResults[model.state.searchIndex].lat;
     model.state.lon = model.state.searchResults[model.state.searchIndex].lon;
   }
+  console.log(model.state);
   controlWeatherData(false);
 };
 

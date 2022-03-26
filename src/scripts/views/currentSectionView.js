@@ -7,7 +7,6 @@ class CurrentSectionView extends View {
   _errorMessage = 'Could not get weather data, pleas try again later!';
 
   _generateMarkup() {
-    console.log(this._data);
     return `
       <div class="current__location">
         <p class="location__date">${formatDate(this._data.current.date)}</p>
@@ -22,21 +21,21 @@ class CurrentSectionView extends View {
             this._data.current.description.id,
             this._data.current.isDay
           )}"
-          alt="My Happy SVG"
+          alt="${this._data.current.description.text}"
         />
       </div>
 
-      <div class="current__temp">${this._data.current.temp.current.toFixed()}${
+      <div class="current__temp">${this._data.current.temp.current}${
       this._data.units.temp
     }</div>
 
       <div class="current__info">
         <p class="info__description">${this._data.current.description.text}</p>
         <p class="info__amplitude">
-          <span class="info__min">${this._data.current.temp.minimum.toFixed()}${
+          <span class="info__min">${this._data.current.temp.minimum}${
       this._data.units.temp
     }</span> /
-          <span class="info_max">${this._data.current.temp.maximum.toFixed()}${
+          <span class="info_max">${this._data.current.temp.maximum}${
       this._data.units.temp
     }</span>
         </p>
@@ -46,9 +45,9 @@ class CurrentSectionView extends View {
             src="./images/temperature-feels-like.svg"
             alt="feels like icon"
           >
-          <p><spam class="info__feels-like__para">${this._data.current.temp.feelsLike.toFixed()}${
-      this._data.units.temp
-    }</spam></p>
+          <p><spam class="info__feels-like__para">${
+            this._data.current.temp.feelsLike
+          }${this._data.units.temp}</spam></p>
         </div>
       </div>
     `;

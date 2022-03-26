@@ -4,20 +4,23 @@ export default class View {
   render(data) {
     this._data = data;
     const markup = this._generateMarkup();
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._insertMarkup(markup);
   }
 
   _clear() {
     this._parentElement.innerHTML = '';
   }
 
+  _insertMarkup(markup) {
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
   renderSpinner() {
     const markup = `
       <img class="spinner" src="./images/spinner-solid-svgrepo-com.svg"/>
     `;
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._insertMarkup(markup);
   }
 
   renderError() {
@@ -26,7 +29,6 @@ export default class View {
         <p class="error__message">${this._errorMessage}</p>
       </div>
     `;
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._insertMarkup(markup);
   }
 }

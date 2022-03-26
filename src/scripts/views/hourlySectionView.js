@@ -6,7 +6,7 @@ class HourlySectionView extends View {
 
   _generateMarkup() {
     return this._data.hourly
-      .map((hourData, i) => this._generateHourlyMarkup(hourData, i))
+      .map(hourData => this._generateHourlyMarkup(hourData))
       .join('\n');
   }
 
@@ -18,9 +18,7 @@ class HourlySectionView extends View {
           hourData.descriptionId,
           hourData.isDay
         )}" alt="temp" />
-        <p class="hourly__temp">${hourData.temp.toFixed()}${
-      this._data.units.temp
-    }</p>
+        <p class="hourly__temp">${hourData.temp}${this._data.units.temp}</p>
         <p class="hourly__pop">
           <img src="./images/droplet-svgrepo-com.svg"/>
         ${hourData.rainProbability}%</p>

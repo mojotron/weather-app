@@ -25,10 +25,10 @@ class DailySectionView extends View {
           
         </div>
         <p class="daily__temp">
-          <span class="daily__temp--min">${dataDaily.temp.minimum.toFixed()}${
+          <span class="daily__temp--min">${dataDaily.temp.minimum}${
       this._data.units.temp
     }</span> /
-          <span class="daily__temp--max">${dataDaily.temp.maximum.toFixed()}${
+          <span class="daily__temp--max">${dataDaily.temp.maximum}${
       this._data.units.temp
     }</span>
         </p>

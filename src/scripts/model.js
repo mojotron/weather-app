@@ -1,5 +1,5 @@
 import { WEATHER_API_KEY } from './apikey';
-import { UNITS } from './config';
+import { API_URL, API_URL_GEO, UNITS } from './config';
 
 export const state = {
   lat: null,
@@ -27,6 +27,7 @@ const getAJAX = async url => {
     return data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
@@ -49,17 +50,17 @@ const createCurrentWeatherObject = data => ({
     text: data.current.weather[0].description,
   },
   temp: {
-    current: data.current.temp,
-    feelsLike: data.current.feels_like,
-    minimum: data.daily[0].temp.min,
-    maximum: data.daily[0].temp.max,
+    current: Math.round(data.current.temp),
+    feelsLike: Math.round(data.current.feels_like),
+    minimum: Math.round(data.daily[0].temp.min),
+    maximum: Math.round(data.daily[0].temp.max),
   },
 });
 
 const createHourlyWeatherObject = data =>
   data.hourly.slice(1, 25).map(obj => ({
-    time: obj.dt * 1000,
-    temp: obj.temp,
+    time: obj.dt * 1000, // TODO
+    temp: Math.round(obj.temp),
     rainProbability: Math.round(obj.pop * 100),
     descriptionId: obj.weather[0].id,
     isDay: obj.weather[0].icon.at(-1) === 'd',
@@ -67,11 +68,11 @@ const createHourlyWeatherObject = data =>
 
 const createDailyWeatherObject = data =>
   data.daily.slice(1).map(obj => ({
-    time: obj.dt * 1000,
+    time: obj.dt * 1000, // TODO
     rainProbability: Math.round(obj.pop * 100),
     temp: {
-      minimum: obj.temp.min,
-      maximum: obj.temp.max,
+      minimum: Math.round(obj.temp.min),
+      maximum: Math.round(obj.temp.max),
     },
     descriptionId: obj.weather[0].id,
   }));
@@ -80,8 +81,8 @@ const createBonusWeatherObject = data => ({
   uvIndex: data.current.uvi,
   humidity: data.current.humidity,
   pressure: data.current.pressure,
-  sunrise: data.current.sunrise * 1000, // offset
-  sunset: data.current.sunset * 1000, // offset
+  sunrise: data.current.sunrise * 1000, // TODO offset
+  sunset: data.current.sunset * 1000, // TODO offset
   wind: {
     deg: data.current.wind_deg,
     speed: data.current.wind_speed,
@@ -89,7 +90,7 @@ const createBonusWeatherObject = data => ({
 });
 
 const createAlertsWeatherObject = data =>
-  data.map(ele => ({
+  data.alerts.map(ele => ({
     tag: ele.tags[0],
     description: ele.description.split('\n'),
   }));
@@ -99,12 +100,13 @@ export const loadWeatherData = async (getLocation = true) => {
   try {
     if (getLocation) {
       const location = await getCurrentLocation();
-      const coords = await getCurrentLocationCoords(location);
+      const coords = getCurrentLocationCoords(location);
       state.lat = coords.lat;
       state.lon = coords.lon;
     }
+
     const data = await getAJAX(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${state.lat}&lon=${state.lon}&units=${state.units.label}&exclude=minutely&lang=${navigator.language}&appid=${WEATHER_API_KEY}`
+      `${API_URL}onecall?lat=${state.lat}&lon=${state.lon}&units=${state.units.label}&exclude=minutely&lang=${navigator.language}&appid=${WEATHER_API_KEY}`
     );
     state.current = createCurrentWeatherObject(data);
     state.hourly = createHourlyWeatherObject(data);
@@ -114,10 +116,10 @@ export const loadWeatherData = async (getLocation = true) => {
     state.setIsDayCurrent();
     // get city name with another call to diff endpoint
     const data2 = await getAJAX(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${state.lat}&lon=${state.lon}&appid=${WEATHER_API_KEY}`
+      `${API_URL}forecast?lat=${state.lat}&lon=${state.lon}&appid=${WEATHER_API_KEY}`
     );
+
     state.current.city = `${data2.city.name}, ${data2.city.country}`;
-    console.log(state);
   } catch (error) {
     console.error(error.message);
     throw error;
@@ -127,8 +129,9 @@ export const loadWeatherData = async (getLocation = true) => {
 export const loadCityNames = async city => {
   try {
     const data = await getAJAX(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${WEATHER_API_KEY}`
+      `${API_URL_GEO}direct?q=${city}&limit=5&appid=${WEATHER_API_KEY}`
     );
+
     state.searchResults = data.map(obj => ({
       city: obj.name,
       country: obj.country,

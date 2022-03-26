@@ -4,7 +4,6 @@ class AlertsSectionView extends View {
   _parentElement = document.querySelector('.weather__alerts');
 
   _generateMarkup() {
-    console.log(this._data);
     return this._data
       .map((alertData, i) => this._generateAlertMarkup(alertData, i))
       .join('\n');

@@ -1,5 +1,9 @@
-export const API_URL =
-  'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}';
+const urlBase = 'https://api.openweathermap.org/';
+const urlData = 'data/2.5/';
+const urlGeo = 'geo/1.0/';
+
+export const API_URL = `${urlBase}${urlData}`;
+export const API_URL_GEO = `${urlBase}${urlGeo}`;
 
 export const UNITS = {
   metric: {
@@ -18,5 +22,3 @@ export const UNITS = {
     wind: 'm/s',
   },
 };
-// search by city name with 5 match limit
-// http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit=5&appid={API key}

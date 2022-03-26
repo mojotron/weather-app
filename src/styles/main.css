@@ -290,6 +290,9 @@ body {
   outline: none;
   background-color: #e9ecf0;
 }
+.search__bar::placeholder {
+  font-weight: 400;
+}
 .search__results {
   position: relative;
   top: -0.9rem;
@@ -352,6 +355,8 @@ body {
   width: 100%;
 }
 .alert {
+  padding: 2rem 1rem;
+  position: relative;
   margin: -1rem auto 0.3rem;
   background: linear-gradient(90deg, var(--uv-very-high), var(--uv-high));
   width: 90%;
@@ -365,7 +370,20 @@ body {
 .alert__description {
   padding: 1rem 2rem;
   text-align: justify;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+}
+.btn--close-alert {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+  color: var(--font-white);
+  font-size: 2rem;
+  border: none;
+  background: none;
+}
+.btn--close-alert:hover {
+  color: var(--dark-blue);
 }
 
 /* error */
