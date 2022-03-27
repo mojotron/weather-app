@@ -32,6 +32,8 @@ body {
   justify-content: center;
   color: var(--font-white);
   letter-spacing: 0.2rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .weather {

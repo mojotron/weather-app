@@ -5,11 +5,14 @@ export const formatDate = date => {
     month: 'long',
   };
   const formatter = new Intl.DateTimeFormat(navigator.language, options);
-  return formatter.format(date);
+
+  return formatter.format(new Date(date));
 };
 
 export const getDayName = date =>
-  new Intl.DateTimeFormat(navigator.language, { weekday: 'long' }).format(date);
+  new Intl.DateTimeFormat(navigator.language, { weekday: 'long' }).format(
+    new Date(date)
+  );
 
 export const formatTime = date => {
   const options = {
@@ -17,7 +20,7 @@ export const formatTime = date => {
     minute: 'numeric',
   };
   const formatter = new Intl.DateTimeFormat(navigator.language, options);
-  return formatter.format(date);
+  return formatter.format(new Date(date));
 };
 
 export const getImagePath = (id, day = true) => {

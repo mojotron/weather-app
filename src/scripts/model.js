@@ -1,6 +1,8 @@
 import { WEATHER_API_KEY } from './apikey';
 import { API_URL, API_URL_GEO, UNITS } from './config';
 
+const { Temporal } = require('@js-temporal/polyfill');
+
 export const state = {
   lat: null,
   lon: null,
@@ -14,7 +16,7 @@ export const state = {
   searchIndex: null,
 
   setIsDayCurrent() {
-    const time = this.current.date.getTime();
+    const time = this.current.date;
     this.current.isDay = time >= this.bonus.sunrise && time < this.bonus.sunset;
   },
 };
@@ -41,10 +43,15 @@ const getCurrentLocationCoords = data => {
   const { latitude: lat, longitude: lon } = data.coords;
   return { lat, lon };
 };
-
+// TEMP start
+const getDate = (date, timezone) => {
+  const dateObj = Temporal.Instant.fromEpochSeconds(date);
+  const timezoneObj = Temporal.TimeZone.from(timezone);
+  return timezoneObj.getPlainDateTimeFor(dateObj).toString();
+};
+// TEMP end
 const createCurrentWeatherObject = data => ({
-  city: data.timezone.split('/').at(-1),
-  date: new Date(),
+  date: getDate(data.current.dt, data.timezone),
   description: {
     id: data.current.weather[0].id,
     text: data.current.weather[0].description,
@@ -59,7 +66,7 @@ const createCurrentWeatherObject = data => ({
 
 const createHourlyWeatherObject = data =>
   data.hourly.slice(1, 25).map(obj => ({
-    time: obj.dt * 1000, // TODO
+    time: getDate(obj.dt, data.timezone), // TODO
     temp: Math.round(obj.temp),
     rainProbability: Math.round(obj.pop * 100),
     descriptionId: obj.weather[0].id,
@@ -68,7 +75,7 @@ const createHourlyWeatherObject = data =>
 
 const createDailyWeatherObject = data =>
   data.daily.slice(1).map(obj => ({
-    time: obj.dt * 1000, // TODO
+    time: getDate(obj.dt, data.timezone), // TODO
     rainProbability: Math.round(obj.pop * 100),
     temp: {
       minimum: Math.round(obj.temp.min),
@@ -81,8 +88,8 @@ const createBonusWeatherObject = data => ({
   uvIndex: data.current.uvi,
   humidity: data.current.humidity,
   pressure: data.current.pressure,
-  sunrise: data.current.sunrise * 1000, // TODO offset
-  sunset: data.current.sunset * 1000, // TODO offset
+  sunrise: getDate(data.current.sunrise, data.timezone), // TODO offset
+  sunset: getDate(data.current.sunset, data.timezone), // TODO offset
   wind: {
     deg: data.current.wind_deg,
     speed: data.current.wind_speed,
@@ -118,7 +125,6 @@ export const loadWeatherData = async (getLocation = true) => {
     const data2 = await getAJAX(
       `${API_URL}forecast?lat=${state.lat}&lon=${state.lon}&appid=${WEATHER_API_KEY}`
     );
-
     state.current.city = `${data2.city.name}, ${data2.city.country}`;
   } catch (error) {
     console.error(error.message);
