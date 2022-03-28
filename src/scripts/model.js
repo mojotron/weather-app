@@ -1,7 +1,6 @@
-import { WEATHER_API_KEY } from './apikey';
+import WEATHER_API_KEY from './apikey';
 import { API_URL, API_URL_GEO, UNITS } from './config';
-
-const { Temporal } = require('@js-temporal/polyfill');
+import { getDate } from './helpers';
 
 export const state = {
   lat: null,
@@ -43,13 +42,7 @@ const getCurrentLocationCoords = data => {
   const { latitude: lat, longitude: lon } = data.coords;
   return { lat, lon };
 };
-// TEMP start
-const getDate = (date, timezone) => {
-  const dateObj = Temporal.Instant.fromEpochSeconds(date);
-  const timezoneObj = Temporal.TimeZone.from(timezone);
-  return timezoneObj.getPlainDateTimeFor(dateObj).toString();
-};
-// TEMP end
+
 const createCurrentWeatherObject = data => ({
   date: getDate(data.current.dt, data.timezone),
   description: {

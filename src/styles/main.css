@@ -35,7 +35,7 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
 }
-
+/* weather container */
 .weather {
   margin: 3rem 0;
   background: linear-gradient(45deg, var(--dark-blue), var(--dark-purple));
@@ -51,7 +51,7 @@ body {
   overflow: hidden;
   position: relative;
 }
-
+/* current weather section */
 .weather__current {
   margin: 2rem 0;
   display: flex;
@@ -59,7 +59,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-/* time date city */
 .current__location {
   display: flex;
   flex-direction: column;
@@ -75,7 +74,6 @@ body {
 .location__city {
   font-size: 2rem;
 }
-/* main weather img */
 .current__image {
   height: 30rem;
   width: 30rem;
@@ -85,7 +83,6 @@ body {
   height: 100%;
   width: 100%;
 }
-/* main temp */
 .current__temp {
   font-size: 8rem;
   position: relative;
@@ -116,7 +113,7 @@ body {
   position: relative;
   bottom: 0.5rem;
 }
-/* hurly container */
+/* hurly weather section */
 .weather__hourly {
   display: flex;
   overflow: scroll;
@@ -137,8 +134,7 @@ body {
   position: relative;
   top: 2px;
 }
-
-/* daily */
+/* daily weather section */
 .weather__daily {
   display: column;
   flex-direction: row;
@@ -151,7 +147,7 @@ body {
   align-items: center;
   font-size: 1.8rem;
 }
-/* bonus */
+/* bonus weather section */
 .weather__bonus {
   width: 100%;
   margin-top: 1.5rem;
@@ -175,7 +171,7 @@ body {
   width: 3rem;
 }
 
-/* options */
+/* options modal */
 .btn--options {
   height: 3rem;
   width: 3rem;
@@ -187,11 +183,10 @@ body {
   background: none;
   border: none;
 }
-
 .btn--search-city {
   display: inline-block;
   position: relative;
-  top: 0.9rem;
+  top: 0.85rem;
   right: 1.4rem;
   border: none;
   border-bottom: 3px solid var(--dark-blue);
@@ -209,7 +204,6 @@ body {
   height: 3rem;
   width: 3rem;
 }
-
 [data='options'] {
   height: 100%;
   width: 100%;
@@ -218,7 +212,6 @@ body {
 [data='options']:hover {
   transform: rotate(90deg);
 }
-
 .options__modal {
   z-index: 10;
   position: absolute;
@@ -337,12 +330,10 @@ body {
   background-color: var(--font-white);
   color: var(--dark-blue);
 }
-
 /* spinner */
 .spinner {
   animation: spin 2s linear infinite;
 }
-
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -351,8 +342,7 @@ body {
     transform: rotate(360deg);
   }
 }
-
-/* alerts */
+/* alerts weather section */
 .weather__alerts {
   width: 100%;
 }

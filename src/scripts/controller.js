@@ -54,7 +54,7 @@ const controlOptionsSearchSubmit = async city => {
     if (data.length === 0) return;
     if (data.length > 0) optionsView.renderSearchResults(data);
   } catch (error) {
-    console.log(error);
+    currentSectionView.renderError();
   }
 };
 

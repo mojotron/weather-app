@@ -1,3 +1,11 @@
+const { Temporal } = require('@js-temporal/polyfill');
+
+export const getDate = (date, timezone) => {
+  const dateObj = Temporal.Instant.fromEpochSeconds(date);
+  const timezoneObj = Temporal.TimeZone.from(timezone);
+  return timezoneObj.getPlainDateTimeFor(dateObj).toString();
+};
+
 export const formatDate = date => {
   const options = {
     weekday: 'long',
