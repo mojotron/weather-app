@@ -112,7 +112,7 @@ export const loadWeatherData = async (getLocation = true) => {
     state.hourly = createHourlyWeatherObject(data);
     state.daily = createDailyWeatherObject(data);
     state.bonus = createBonusWeatherObject(data);
-    if (data.alerts) state.alerts = createAlertsWeatherObject(data);
+    state.alerts = data.alerts ? createAlertsWeatherObject(data) : [];
     state.setIsDayCurrent();
     // get city name with another call to diff endpoint
     const data2 = await getAJAX(
