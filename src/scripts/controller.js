@@ -41,8 +41,7 @@ const controlWeatherData = async (getLocation = true) => {
     bonusSectionView.addWindDirection();
     bonusSectionView.addUVStyle();
 
-    if (model.state.alerts.length > 0)
-      alertsSectionView.render(model.state.alerts);
+    alertsSectionView.render(model.state.alerts);
   } catch (error) {
     currentSectionView.renderError();
   }
